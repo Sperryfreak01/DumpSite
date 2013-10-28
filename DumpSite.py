@@ -94,7 +94,7 @@ if __name__ == '__main__':
 	loop.run()
 
 #routine that does the file transfers	
-def transfer()
+def transfer():
 	logging.info('drive mounted successesfully!')
 	if os.path.exists(mount_location + "/" + folder_to_dump): #check if the mounted drive has a folder to get stuff from
 		logging.info("Found a folder to dump from") 
