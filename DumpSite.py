@@ -95,43 +95,43 @@ if __name__ == '__main__':
 
 #routine that does the file transfers	
 def transfer()
-logging.info('drive mounted successesfully!')
-if os.path.exists(mount_location + "/" + folder_to_dump): #check if the mounted drive has a folder to get stuff from
-	logging.info("Found a folder to dump from") 
-	number_to_dump = len(glob.glob(mount_location + "/" + folder_to_dump + "/*"))  #find the number of files in the folder to be dumped
-	if number_to_dump > 0:  #if there are files lets dump em, otherwise what are we doing here?
-		logging.info("there are " + str(number_to_dump) + " items to dump")  #log the number of files
-		source = os.listdir(mount_location+"/"+folder_to_dump+"/")	#dump the filenames to be moved to an array
-		for files in source:
-			logging.debug("copying " + mount_location+"/"+folder_to_dump+"/"+files +" to " + dump_location) #call off the transfer with from and to
-			#if the user wants a clean dumptruck move the files, otherwise just copy the files
-			try:
-				if clean_dumptruck  == True:
-					shutil.move(mount_location + "/" + folder_to_dump + "/" + files ,dump_location) #copy files
-				elif clean_dumptruck == False:
-					shutil.copy(mount_location + "/" + folder_to_dump + "/" + files ,dump_location) #copy files
-			except shutil.Error, err_msg:
-				logging.warning("Unable to copy file:" + files) #rutrow something went wrong...this is as good as it gets now, eventually better debugging
-				logging.warning(err_msg)
-		logging.info("done transfering files, see you next time")
-		if unmount_on_finish:  #if user elected to unmount on finish then boot that drive out of the system
-			subprocess.call(["umount",device_file])
-			logging.info(device_file + " unmounted")
-			#Let pushover know what we have done here, lets hope they are not disapoinited in us
-			pushover.pushover(message= str(number_to_dump) + " successfully dumped to " + dump_location,token = app_token,user = user_token,)
+	logging.info('drive mounted successesfully!')
+	if os.path.exists(mount_location + "/" + folder_to_dump): #check if the mounted drive has a folder to get stuff from
+		logging.info("Found a folder to dump from") 
+		number_to_dump = len(glob.glob(mount_location + "/" + folder_to_dump + "/*"))  #find the number of files in the folder to be dumped
+		if number_to_dump > 0:  #if there are files lets dump em, otherwise what are we doing here?
+			logging.info("there are " + str(number_to_dump) + " items to dump")  #log the number of files
+			source = os.listdir(mount_location+"/"+folder_to_dump+"/")	#dump the filenames to be moved to an array
+			for files in source:
+				logging.debug("copying " + mount_location+"/"+folder_to_dump+"/"+files +" to " + dump_location) #call off the transfer with from and to
+				#if the user wants a clean dumptruck move the files, otherwise just copy the files
+				try:
+					if clean_dumptruck  == True:
+						shutil.move(mount_location + "/" + folder_to_dump + "/" + files ,dump_location) #copy files
+					elif clean_dumptruck == False:
+						shutil.copy(mount_location + "/" + folder_to_dump + "/" + files ,dump_location) #copy files
+				except shutil.Error, err_msg:
+					logging.warning("Unable to copy file:" + files) #rutrow something went wrong...this is as good as it gets now, eventually better debugging
+					logging.warning(err_msg)
+			logging.info("done transfering files, see you next time")
+			if unmount_on_finish:  #if user elected to unmount on finish then boot that drive out of the system
+				subprocess.call(["umount",device_file])
+				logging.info(device_file + " unmounted")
+				#Let pushover know what we have done here, lets hope they are not disapoinited in us
+				pushover.pushover(message= str(number_to_dump) + " successfully dumped to " + dump_location,token = app_token,user = user_token,)
+		else:
+			#if the users wants an unmount on a soft fail then the dude abides
+			logging.info("Found nothing to dump")
+			if unmount_on_fail:
+				subprocess.call(["umount",device_file])
+				logging.info(device_file + " unmounted")
+			
 	else:
 		#if the users wants an unmount on a soft fail then the dude abides
-		logging.info("Found nothing to dump")
+		logging.info("Found no folder to dump from")
 		if unmount_on_fail:
 			subprocess.call(["umount",device_file])
 			logging.info(device_file + " unmounted")
-		
-else:
-	#if the users wants an unmount on a soft fail then the dude abides
-	logging.info("Found no folder to dump from")
-	if unmount_on_fail:
-		subprocess.call(["umount",device_file])
-		logging.info(device_file + " unmounted")
-		
+			
 def endprog()
 	logging.info('DumpSite service stopping')
