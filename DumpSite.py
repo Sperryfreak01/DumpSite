@@ -49,39 +49,66 @@ def endprog():
 logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='/var/log/dumpsite.log',level=logging.DEBUG)
 logging.handlers.TimedRotatingFileHandler(filename='/var/log/dumpsite.log', when='midnight',backupCount=7, encoding=None, delay=False, utc=False)
 logging.info('DumpSite service started')
+dumpsource = mount_location+"/"+folder_to_dump
+dirs_dumped = 0
+files_dumped = 0
 
 #routine that does the file transfers	
-def transfer(device_file,label,fstype,mounted,mount_point,size):
-	device_file = device_file
-	label = label
-	fstype = fstype
-	mounted = mounted
-	mount_point = mount_point
-	size = size
+def transfer(device_file):
+	global dirs_dumped
+	global files_dumped
 	
 	if os.path.exists(mount_location + "/" + folder_to_dump): #check if the mounted drive has a folder to get stuff from
 		logging.info("Found a folder to dump from") 
 		number_to_dump = len(glob.glob(mount_location + "/" + folder_to_dump + "/*"))  #find the number of files in the folder to be dumped
 		if number_to_dump > 0:  #if there are files lets dump em, otherwise what are we doing here?
 			logging.info("there are " + str(number_to_dump) + " items to dump")  #log the number of files
-			source = os.listdir(mount_location+"/"+folder_to_dump+"/")	#dump the filenames to be moved to an array
-			for files in source:
-				logging.debug("copying " + mount_location+"/"+folder_to_dump+"/"+files +" to " + dump_location) #call off the transfer with from and to
+			
+			for dirname in os.walk(dumpsource).next()[1]: #copy the dirs inside the folder to be dumped
+				try:
+					logging.debug("copying folder: "+dirname +" to " + dump_location) #call off the transfer with from and to
+					shutil.copytree(dumpsource+"/"+dirname+"/",dump_location+"/"+dirname) #copy folders
+					dirs_dumped += 1
+				#rutrow something went wrong...this is as good as it gets now, eventually better debugging
+				except OSError as err_msg:
+					logging.warning("Encountered an OSError, unable to copy dir: " + dirname)
+					logging.warning(err_msg)
+				except shutil.Error, err_msg:
+					logging.warning("Encountered an shutil error, unable to copy dir: " + dirname)
+					logging.warning(err_msg)
+				except IOError, err_msg:
+					logging.warning("Encountered an IOError, unable to copy dir: " + dirname)
+					logging.warning(err_msg)
+			
+			for filename in os.walk(dumpsource).next()[2]: #copy the files inside the folder to be dumped
+				logging.debug("copying file: "+filename +" to " + dump_location) #call off the transfer with from and to
 				#if the user wants a clean dumptruck move the files, otherwise just copy the files
 				try:
-					if clean_dumptruck  == True:
-						shutil.move(mount_location + "/" + folder_to_dump + "/" + files ,dump_location) #copy files
-					elif clean_dumptruck == False:
-						shutil.copy(mount_location + "/" + folder_to_dump + "/" + files ,dump_location) #copy files
+						logging.debug("copying file: "+filename+" to "+dump_location) #call off the transfer with from and to
+						shutil.copy(mount_location + "/" + folder_to_dump  + "/" + filename , dump_location) #copy files
+						files_dumped += 1
 				except shutil.Error, err_msg:
-					logging.warning("Unable to copy file:" + files) #rutrow something went wrong...this is as good as it gets now, eventually better debugging
+				#rutrow something went wrong...this is as good as it gets now, eventually better debugging
+					logging.warning("Unable to copy file: " + dirname)
 					logging.warning(err_msg)
+				except IOError, err_msg:
+				#rutrow something went wrong...this is as good as it gets now, eventually better debugging
+					logging.warning("Unable to copy file: " + dirname)
+					logging.warning(err_msg)
+
 			logging.info("done transfering files, see you next time")
-			if unmount_on_finish:  #if user elected to unmount on finish then boot that drive out of the system
+			#pushover(True,dirs_dumped,files_dumped)
+			pushover.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped)+" files to "+ dump_location,token = app_token,user = user_token,)
+			
+			if clean_dumptruck:
+			#if the user wants a clean dumptruck move the files, otherwise just copy the files
+				logging.debug("this doesnt do anything yet")
+			
+			if unmount_on_finish:  
+			#if user elected to unmount on finish then boot that drive out of the system
 				subprocess.call(["umount",device_file])
 				logging.info(device_file + " unmounted")
-				#Let pushover know what we have done here, lets hope they are not disapoinited in us
-				pushover.pushover(message= str(number_to_dump) + " successfully dumped to " + dump_location,token = app_token,user = user_token,)
+				
 		else:
 			#if the users wants an unmount on a soft fail then the dude abides
 			logging.info("Found nothing to dump")
