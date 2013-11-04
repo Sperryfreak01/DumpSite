@@ -31,6 +31,7 @@ import datetime
 import glob
 import shutil
 import atexit
+import errno
 
 debug_level = "DEBUG" #DEBUG or INFO
 enable_pushover = True  #Enable pushover support to send a notification when completed
