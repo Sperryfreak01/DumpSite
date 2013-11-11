@@ -42,8 +42,8 @@ logging.info('DumpSite service started')
 class DeviceAddedListener:
     def __init__(self):
         self.bus = dbus.SystemBus()
-        self.hal_manager_obj = self.bus.get_object("org.freedesktop.Hal","/org/freedesktop/Hal/Manager")
-        self.hal_manager = dbus.Interface(self.hal_manager_obj,"org.freedesktop.Hal.Manager")
+        self.hal_manager_obj = self.bus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
+        self.hal_manager = dbus.Interface(self.hal_manager_obj, "org.freedesktop.Hal.Manager")
         self.hal_manager.connect_to_signal("DeviceAdded", self._filter)
 
     def _filter(self, udi):
@@ -76,11 +76,11 @@ class DeviceAddedListener:
         logging.debug("  size: %s (%.2fGB)" % (size, float(size) / 1024**3))
 
         #Lets try and mount the SOB, if it works we should get a return of 0
-        return_code = subprocess.call(["mount", "-t" , fstype, device_file, mount_location])
+        return_code = subprocess.call(["mount", "-t", fstype, device_file, mount_location])
 
         if return_code == 0:
-            logging.info('drive mounted successesfully!')
-            transfer(device_file,label,fstype,mounted,mount_point,size)
+            logging.info('drive mounted successfully!')
+            transfer(device_file, label, fstype, mounted, mount_point, size)
         #mount return/failure codes
         if return_code == 1:
             logging.warning('incorrect invocation or permissions')
