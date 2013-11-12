@@ -28,6 +28,8 @@ import logging
 import logging.handlers
 import glob
 import shutil
+import urllib2
+import urllib
 
 
 debug_level = "DEBUG" # DEBUG or INFO
@@ -41,7 +43,8 @@ folder_to_dump = "Downloads"  # Path to folder to dump relative to mount point
 dump_location = "/storage/Downloads"  # aboslute location to dump files to
 clean_dumptruck = False # If true source folder will be emptied, If false a copy will remain in the source folder
 sickbeard_location = "usr/local/sickbeard"
-
+cp_api = b7bc605b34c447db96ee6e5301d52631
+cp_address = 'mattlovett.com:9092'
 
 dumpsource = mount_location+"/"+folder_to_dump
 dirs_dumped = 0
@@ -61,7 +64,7 @@ def transfer(device_file):
             for dirname in os.walk(dumpsource).next()[1]:  # copy the dirs inside the folder to be dumped
                 try:
                     logging.debug("copying folder: "+dirname + " to " + dump_location)  # call off the transfer with from and to
-                    shutil.copytree(dumpsource+"/"+dirname+"/",dump_location+"/"+dirname) # copy folders
+                    shutil.copytree(dumpsource+"/"+dirname+"/", dump_location+"/"+dirname) # copy folders
                     dirs_dumped += 1
                 # rutrow something went wrong...this is as good as it gets now, eventually better debugging
                 except OSError as err_msg:
@@ -93,6 +96,15 @@ def transfer(device_file):
             logging.info("done transfering files, see you next time")
             #pushover(True,dirs_dumped,files_dumped)
             pushover.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location,token = app_token,user = user_token,)
+
+            params = urllib.urlencode({'movie_folder': dump_location})
+            try:
+                f = urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
+                logging.debug('Triggered a CouchPotato scan of DumpFolder')
+            except IOError, err_msg:
+                logging.warning('Unable to reach CouchPotato, check your config')
+                logging.warning(err_msg)
+
 
             if clean_dumptruck:
             #if the user wants a clean dumptruck move the files, otherwise just copy the files
