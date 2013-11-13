@@ -42,10 +42,9 @@ mount_location = "/mnt/external"  # Location you want the drive mounted to when 
 folder_to_dump = "Downloads"  # Path to folder to dump relative to mount point
 dump_location = "/storage/Downloads"  # aboslute location to dump files to
 clean_dumptruck = False # If true source folder will be emptied, If false a copy will remain in the source folder
-sickbeard_location = "usr/local/sickbeard"
+sickbeard_location = "/usr/local/sickbeard"
 cp_api = b7bc605b34c447db96ee6e5301d52631
 cp_address = 'mattlovett.com:9092'
-
 dumpsource = mount_location+"/"+folder_to_dump
 dirs_dumped = 0
 files_dumped = 0
@@ -97,9 +96,11 @@ def transfer(device_file):
             #pushover(True,dirs_dumped,files_dumped)
             pushover.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location,token = app_token,user = user_token,)
 
-            params = urllib.urlencode({'movie_folder': dump_location})
+            subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
+
             try:
-                f = urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
+                params = urllib.urlencode({'movie_folder': dump_location})
+                urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
                 logging.debug('Triggered a CouchPotato scan of DumpFolder')
             except IOError, err_msg:
                 logging.warning('Unable to reach CouchPotato, check your config')
