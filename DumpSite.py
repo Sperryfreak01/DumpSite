@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.		  #
 # 																			  #
 ###############################################################################
-import pushover
+#import pushover
 import dbus
 import gobject
 import subprocess
@@ -27,9 +27,41 @@ import logging
 import logging.handlers
 import atexit
 import transfer
+import ConfigParser
 
-debug_level = "DEBUG" #DEBUG or INFO
 
+config = ConfigParser.RawConfigParser()
+config.read('DumpSite.cfg')
+
+#Load general settings from the config file
+dubug_level = config.get('GENERAL', 'debug-level')
+unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
+unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
+mount_location = config.get('GENERAL', 'mount-location')
+folder_to_dump = config.get('GENERAL', 'folder-to-dump')
+dump_location = config.get('GENERAL', 'dump-location')
+clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
+
+#Load pushover settings from the config file
+enable_pushover = config.get('PUSHOVER', 'status')
+app_token = config.get('PUSHOVER', 'app-token')
+user_token = config.get('PUSHOVER', 'user-token')
+
+#Load sickbeard settings from the config file
+sb_status = config.get('SICKBEARD', 'status')
+sickbeard_location = config.get('SICKBEARD', 'location')
+sb_host = config.get('SICKBEARD', 'host')
+sb_port = config.get('SICKBEARD', 'port')
+sb_username = config.get('SICKBEARD', 'username')
+sb_portname = config.get('SICKBEARD', 'password')
+sb_ssl = config.get('SICKBEARD', 'ssl')
+
+
+#Load couchpotato settings from the config file
+cp_status = config.get('COUCHPOTATO', 'status')
+cp_api = config.get('COUCHPOTATO', 'api')
+cp_host = config.get('COUCHPOTATO', 'host')
+cp_port = config.get('COUCHPOTATO', 'port')
 
 def endprog():
     logging.info('DumpSite service stopping')
@@ -76,11 +108,12 @@ class DeviceAddedListener:
         logging.debug("  size: %s (%.2fGB)" % (size, float(size) / 1024**3))
 
         #Lets try and mount the SOB, if it works we should get a return of 0
+        logging.debug("mount command:  mount -t" + fstype + device_file + mount_location)
         return_code = subprocess.call(["mount", "-t", fstype, device_file, mount_location])
 
         if return_code == 0:
             logging.info('drive mounted successfully!')
-            transfer(device_file, label, fstype, mounted, mount_point, size)
+            transfer(device_file, mount_location)
         #mount return/failure codes
         if return_code == 1:
             logging.warning('incorrect invocation or permissions')

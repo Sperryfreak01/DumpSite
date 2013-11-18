@@ -1,82 +1,29 @@
 __author__ = 'matt'
 
-
-import sys
 import urllib
-import os.path
-import ConfigParser
+import urllib2
+import urlparse
+import json
+import os
 
-class AuthURLOpener(urllib.FancyURLopener):
-    def __init__(self, user, pw):
-        self.username = user
-        self.password = pw
-        self.numTries = 0
-        urllib.FancyURLopener.__init__(self)
+PUSHOVER_API = "https://api.pushover.net/1/"
 
-    def prompt_user_passwd(self, host, realm):
-        if self.numTries == 0:
-            self.numTries = 1
-            return (self.username, self.password)
-        else:
-            return ('', '')
+class PushoverError(Exception): pass
 
-    def openit(self, url):
-        self.numTries = 0
-        return urllib.FancyURLopener.open(self, url)
+def pushover(**kwargs):
+    assert 'message' in kwargs
 
+    if not 'token' in kwargs:
+        kwargs['token'] = os.environ['PUSHOVER_TOKEN']
+    if not 'user' in kwargs:
+        kwargs['user'] = os.environ['PUSHOVER_USER']
 
-def processEpisode(dirName, nzbName=None):
+    url = urlparse.urljoin(PUSHOVER_API, "messages.json")
+    data = urllib.urlencode(kwargs)
+    req = urllib2.Request(url, data)
+    response = urllib2.urlopen(req)
+    output = response.read()
+    data = json.loads(output)
 
-    config = ConfigParser.ConfigParser()
-    configFilename = os.path.join(os.path.dirname(sys.argv[0]), "autoProcessTV.cfg")
-    print "Loading config from", configFilename
-
-    if not os.path.isfile(configFilename):
-        print "ERROR: You need an autoProcessTV.cfg file - did you rename and edit the .sample?"
-        sys.exit(-1)
-
-    try:
-        fp = open(configFilename, "r")
-        config.readfp(fp)
-        fp.close()
-    except IOError, e:
-        logging.warning("Could not read configuration file: " + str(e))
-
-    host = config.get("SickBeard", "host")
-    port = config.get("SickBeard", "port")
-    username = config.get("SickBeard", "username")
-    password = config.get("SickBeard", "password")
-    try:
-        ssl = int(config.get("SickBeard", "ssl"))
-    except (ConfigParser.NoOptionError, ValueError):
-        ssl = 0
-
-    try:
-        web_root = config.get("SickBeard", "web_root")
-    except ConfigParser.NoOptionError:
-        web_root = ""
-
-    params = {}
-
-    params['quiet'] = 1
-
-    params['dir'] = dirName
-    if nzbName != None:
-        params['nzbName'] = nzbName
-
-    myOpener = AuthURLOpener(username, password)
-
-    if ssl:
-        protocol = "https://"
-    else:
-        protocol = "http://"
-
-    url = protocol + host + ":" + port + web_root + "/home/postprocess/processEpisode?" + urllib.urlencode(params)
-
-    logging.debug("Opening URL: " + url+
-
-    try:
-        urlObj = myOpener.openit(url)
-    except IOError, e:
-        logging.warning("Unable to open URL: " + str(e))
-
+    if data['status'] != 1:
+        raise PushoverError(output)

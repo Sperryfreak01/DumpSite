@@ -30,27 +30,17 @@ import glob
 import shutil
 import urllib2
 import urllib
+import notifications
 
 
-debug_level = "DEBUG" # DEBUG or INFO
-enable_pushover = True  # Enable pushover support to send a notification when completed
-app_token   = "aR1X38Dmz5YgSmJjmPVmd43cNQKKSx"  # Pushover app api key, must create your own api key
-user_token  = "upTA78BinTDeivWZxLQnorhCijPnHE"  # Pushover user key, get this from your account page
-unmount_on_fail = True    # if true unmounts the drive if there is a failure (no download folder, no files to dump, etc)
-unmount_on_finish = True  # If true unmounts the drive after all files have been dumped
-mount_location = "/mnt/external"  # Location you want the drive mounted to when connected
-folder_to_dump = "Downloads"  # Path to folder to dump relative to mount point
-dump_location = "/storage/Downloads"  # aboslute location to dump files to
-clean_dumptruck = False # If true source folder will be emptied, If false a copy will remain in the source folder
-sickbeard_location = "/usr/local/sickbeard"
-cp_api = b7bc605b34c447db96ee6e5301d52631
-cp_address = 'mattlovett.com:9092'
-dumpsource = mount_location+"/"+folder_to_dump
+
+
 dirs_dumped = 0
 files_dumped = 0
 
 #routine that does the file transfers
-def transfer(device_file):
+def transfer(device_file, mount_location):
+    dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped
 
