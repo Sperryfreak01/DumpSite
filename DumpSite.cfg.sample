@@ -1,0 +1,40 @@
+[GENERAL]
+debug-level = info                  #LEVEL OF LOGGING - DEBUG AND INFO ARE VALID - DEFAULT IS INFO
+unmount-on-fail = true              # if true unmounts the drive if there is a failure (no download folder, no files to dump, etc)
+unmount-on-finish = true            # If true unmounts the drive after all files have been dumped
+clean_dumptruck = false             # If true source folder will be emptied, If false a copy will remain in the source folder
+
+mount-location = /mnt/external      # Location you want the drive mounted to when connected
+folder-to-dump = Downloads          # Path to folder to dump relative to mount location
+dump-location = /home/user          # aboslute location to dump files to
+
+[PUSHOVER]
+# PUSHOVER NOTIFICATION REPORTING - DISABLED BY DEFAULT
+
+pushover-status = disable           #ENABLE/DISABLE
+app-token  =
+user-token =
+
+[SICKBEARD]
+
+status = disable                 #ENABLE/DISABLE
+host =
+port =
+username =
+password =
+ssl =
+
+[COUCHPOTATO]
+#ENABLE COUCHPOTATO SUPPORT TO SCAN FOLDER AFTER SUCCESSFUL DUMP
+
+status = disable                 #ENABLE/DISABLE
+api =
+host =
+port =
+
+[GMAIL]
+
+
+
+
+
