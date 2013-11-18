@@ -29,6 +29,7 @@ import atexit
 import transfer
 import ConfigParser
 
+testing = True
 
 config = ConfigParser.RawConfigParser()
 config.read('DumpSite.cfg')
@@ -42,26 +43,6 @@ folder_to_dump = config.get('GENERAL', 'folder-to-dump')
 dump_location = config.get('GENERAL', 'dump-location')
 clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
 
-#Load pushover settings from the config file
-enable_pushover = config.get('PUSHOVER', 'status')
-app_token = config.get('PUSHOVER', 'app-token')
-user_token = config.get('PUSHOVER', 'user-token')
-
-#Load sickbeard settings from the config file
-sb_status = config.get('SICKBEARD', 'status')
-sickbeard_location = config.get('SICKBEARD', 'location')
-sb_host = config.get('SICKBEARD', 'host')
-sb_port = config.get('SICKBEARD', 'port')
-sb_username = config.get('SICKBEARD', 'username')
-sb_portname = config.get('SICKBEARD', 'password')
-sb_ssl = config.get('SICKBEARD', 'ssl')
-
-
-#Load couchpotato settings from the config file
-cp_status = config.get('COUCHPOTATO', 'status')
-cp_api = config.get('COUCHPOTATO', 'api')
-cp_host = config.get('COUCHPOTATO', 'host')
-cp_port = config.get('COUCHPOTATO', 'port')
 
 def endprog():
     logging.info('DumpSite service stopping')
@@ -113,7 +94,7 @@ class DeviceAddedListener:
 
         if return_code == 0:
             logging.info('drive mounted successfully!')
-            transfer(device_file, mount_location)
+            transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location)
         #mount return/failure codes
         if return_code == 1:
             logging.warning('incorrect invocation or permissions')
@@ -133,12 +114,16 @@ class DeviceAddedListener:
             logging.warning('mount failed for an unknown reason, mount code: ' + str(return_code))
 
 if __name__ == '__main__':
-    from dbus.mainloop.glib import DBusGMainLoop
-    atexit.register(endprog)
-    DBusGMainLoop(set_as_default=True)
-    loop = gobject.MainLoop()
-    DeviceAddedListener()
-    loop.run()
+    if testing:
+        transfer.transferfiles("this is only a test", mount_location, folder_to_dump, dump_location)
+    else:
+        from dbus.mainloop.glib import DBusGMainLoop
+        atexit.register(endprog)
+        DBusGMainLoop(set_as_default=True)
+
+        loop = gobject.MainLoop()
+        DeviceAddedListener()
+        loop.run()
 
 
 

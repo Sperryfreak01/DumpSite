@@ -1,5 +1,3 @@
-__author__ = 'matt'
-
 import urllib
 import urllib2
 import urlparse
@@ -21,9 +19,12 @@ def pushover(**kwargs):
     url = urlparse.urljoin(PUSHOVER_API, "messages.json")
     data = urllib.urlencode(kwargs)
     req = urllib2.Request(url, data)
-    response = urllib2.urlopen(req)
-    output = response.read()
-    data = json.loads(output)
+    try:
+        response = urllib2.urlopen(req)
+        output = response.read()
+        data = json.loads(output)
+    except urllib2.HTTPError, httperror:
+        PushoverError(httperror)
 
     if data['status'] != 1:
         raise PushoverError(output)

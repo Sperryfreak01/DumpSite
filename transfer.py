@@ -31,15 +31,38 @@ import shutil
 import urllib2
 import urllib
 import notifications
+import ConfigParser
+
+config = ConfigParser.RawConfigParser()
+config.read('DumpSite.cfg')
+
+#Load pushover settings from the config file
+enable_pushover = config.get('PUSHOVER', 'status')
+app_token = config.get('PUSHOVER', 'app-token')
+user_token = config.get('PUSHOVER', 'user-token')
+
+#Load sickbeard settings from the config file
+sb_status = config.get('SICKBEARD', 'status')
+sickbeard_location = config.get('SICKBEARD', 'location')
+sb_host = config.get('SICKBEARD', 'host')
+sb_port = config.get('SICKBEARD', 'port')
+sb_username = config.get('SICKBEARD', 'username')
+sb_portname = config.get('SICKBEARD', 'password')
+sb_ssl = config.get('SICKBEARD', 'ssl')
 
 
+#Load couchpotato settings from the config file
+cp_status = config.get('COUCHPOTATO', 'status')
+cp_api = config.get('COUCHPOTATO', 'api')
+cp_host = config.get('COUCHPOTATO', 'host')
+cp_port = config.get('COUCHPOTATO', 'port')
 
 
 dirs_dumped = 0
 files_dumped = 0
 
 #routine that does the file transfers
-def transfer(device_file, mount_location):
+def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
     dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped
@@ -84,8 +107,10 @@ def transfer(device_file, mount_location):
 
             logging.info("done transfering files, see you next time")
             #pushover(True,dirs_dumped,files_dumped)
-            pushover.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location,token = app_token,user = user_token,)
-
+            try:
+                notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
+            except notifications.PushoverError, err:
+                logging.warning(err)
             subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
 
             try:
