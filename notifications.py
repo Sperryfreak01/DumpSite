@@ -24,7 +24,7 @@ def pushover(**kwargs):
         output = response.read()
         data = json.loads(output)
     except urllib2.HTTPError, httperror:
-        PushoverError(httperror)
+        raise PushoverError(httperror)
 
     if data['status'] != 1:
         raise PushoverError(output)

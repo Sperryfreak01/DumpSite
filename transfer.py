@@ -110,6 +110,7 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
             try:
                 notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
             except notifications.PushoverError, err:
+                logging.warning('Pushover encounted an error message not sent')
                 logging.warning(err)
             subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
 
