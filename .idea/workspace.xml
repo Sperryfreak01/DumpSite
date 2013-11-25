@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notifications.py" afterPath="$PROJECT_DIR$/notifications.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.py" afterPath="$PROJECT_DIR$/DumpSite.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfer.py" afterPath="$PROJECT_DIR$/transfer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,7 +32,7 @@
       <file leaf-file-name="DumpSite.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="9" selection-start="5296" selection-end="5296" vertical-scroll-proportion="0.0" vertical-offset="1755" max-vertical-offset="2312">
+            <state line="117" column="116" selection-start="5302" selection-end="5302" vertical-scroll-proportion="-64.6" vertical-offset="374" max-vertical-offset="2312">
               <folding>
                 <element signature="e#1172#1183#0" expanded="true" />
               </folding>
@@ -43,7 +43,7 @@
       <file leaf-file-name="transfer.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="11" selection-start="6242" selection-end="6242" vertical-scroll-proportion="0.9329389" vertical-offset="1601" max-vertical-offset="2669">
+            <state line="64" column="93" selection-start="2393" selection-end="2393" vertical-scroll-proportion="0.8443804" vertical-offset="795" max-vertical-offset="2669">
               <folding>
                 <element signature="e#1154#1169#0" expanded="true" />
               </folding>
@@ -98,17 +98,18 @@
         <option value="$PROJECT_DIR$/dumptest.py" />
         <option value="$PROJECT_DIR$/tard.py" />
         <option value="$PROJECT_DIR$/DumpSite.cfg.sample" />
-        <option value="$PROJECT_DIR$/DumpSite.py" />
         <option value="$PROJECT_DIR$/notifications.py" />
         <option value="$PROJECT_DIR$/DumpSite.cfg" />
+        <option value="$PROJECT_DIR$/DumpSite.py" />
         <option value="$PROJECT_DIR$/transfer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="683" />
-    <option name="width" value="683" />
-    <option name="height" value="728" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -207,24 +208,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="DumpSite" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tard.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="DumpSite" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="DumpSite" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DumpSite.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -351,14 +334,31 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="DumpSite" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DumpSite" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DumpSite.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Python.tard" />
       <item index="1" class="java.lang.String" itemvalue="Python.DumpSite" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.DumpSite" />
-        <item index="1" class="java.lang.String" itemvalue="Python.tard" />
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Python.tard" />
       </list>
     </recent_temporary>
   </component>
@@ -418,19 +418,24 @@
       <created>1384758079957</created>
       <updated>1384758079957</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added aditional exception handeling for pushover.">
+      <created>1384758610917</created>
+      <updated>1384758610917</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="683" y="0" width="683" height="728" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25637183" sideWeight="0.67156863" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12518302" sideWeight="0.67156863" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -439,7 +444,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -479,7 +483,8 @@
     <MESSAGE value="Working on adding config support, also brought in code base from sickbeard file scanner script" />
     <MESSAGE value="Config file support added and seems to be working.  Dropped the pushover library to ease the install requirements.  New pushover code is in Notifications." />
     <MESSAGE value="Added a testing workaround that removes the need for a seprate file and removes the need to constantly plub and unplug an external hard drive.  New pushover code not working as it should throughing an http error. the rest of the program is working as expected." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a testing workaround that removes the need for a seprate file and removes the need to constantly plub and unplug an external hard drive.  New pushover code not working as it should throughing an http error. the rest of the program is working as expected." />
+    <MESSAGE value="added aditional exception handeling for pushover." />
+    <option name="LAST_COMMIT_MESSAGE" value="added aditional exception handeling for pushover." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -540,11 +545,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DumpSite.py">
+    <entry file="file://$PROJECT_DIR$/notifications.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="9" selection-start="5296" selection-end="5296" vertical-scroll-proportion="0.0" vertical-offset="1755" max-vertical-offset="2312">
+        <state line="26" column="14" selection-start="678" selection-end="678" vertical-scroll-proportion="-195.5" vertical-offset="51" max-vertical-offset="612">
           <folding>
-            <element signature="e#1172#1183#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -556,18 +561,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notifications.py">
+    <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="14" selection-start="678" selection-end="678" vertical-scroll-proportion="-195.5" vertical-offset="51" max-vertical-offset="612">
+        <state line="117" column="116" selection-start="5302" selection-end="5302" vertical-scroll-proportion="-64.6" vertical-offset="374" max-vertical-offset="2312">
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#1172#1183#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/transfer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="11" selection-start="6242" selection-end="6242" vertical-scroll-proportion="0.9329389" vertical-offset="1601" max-vertical-offset="2669">
+        <state line="64" column="93" selection-start="2393" selection-end="2393" vertical-scroll-proportion="0.8443804" vertical-offset="795" max-vertical-offset="2669">
           <folding>
             <element signature="e#1154#1169#0" expanded="true" />
           </folding>

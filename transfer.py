@@ -62,7 +62,7 @@ dirs_dumped = 0
 files_dumped = 0
 
 #routine that does the file transfers
-def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
+def transferfiles(device_file, mount_location, folder_to_dump, dump_location, clean_dumptruck):
     dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped

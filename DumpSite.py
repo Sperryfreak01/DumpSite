@@ -115,7 +115,7 @@ class DeviceAddedListener:
 
 if __name__ == '__main__':
     if testing:
-        transfer.transferfiles("this is only a test", mount_location, folder_to_dump, dump_location)
+        transfer.transferfiles("this is only a test", mount_location, folder_to_dump, dump_location, clean_dumptruck)
     else:
         from dbus.mainloop.glib import DBusGMainLoop
         atexit.register(endprog)
