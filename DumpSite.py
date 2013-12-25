@@ -19,7 +19,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.		  #
 # 																			  #
 ###############################################################################
-#import pushover
 import dbus
 import gobject
 import subprocess
@@ -35,7 +34,7 @@ config = ConfigParser.RawConfigParser()
 config.read('DumpSite.cfg')
 
 #Load general settings from the config file
-dubug_level = config.get('GENERAL', 'debug-level')
+logging_level = config.get('GENERAL', 'debug-level')
 mount_location = config.get('GENERAL', 'mount-location')
 folder_to_dump = config.get('GENERAL', 'folder-to-dump')
 dump_location = config.get('GENERAL', 'dump-location')
@@ -44,8 +43,8 @@ dump_location = config.get('GENERAL', 'dump-location')
 
 def endprog():
     logging.info('DumpSite service stopping')
-
-logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='/var/log/dumpsite.log',level=logging.DEBUG)
+log_type = ('logging.'+logging_level)
+logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='/var/log/dumpsite.log',level=log_type)
 logging.handlers.TimedRotatingFileHandler(filename='/var/log/dumpsite.log', when='midnight',backupCount=7, encoding=None, delay=False, utc=False)
 logging.info('DumpSite service started')
 

@@ -35,51 +35,80 @@ import ConfigParser
 
 config = ConfigParser.RawConfigParser()
 config.read('DumpSite.cfg')
-
-#Load general setting needed from config file
-unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
-unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
-clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
-
-#Load pushover settings from the config file
-pushover_enabled = config.get('PUSHOVER', 'enabled')
-app_token = config.get('PUSHOVER', 'app-token')
-user_token = config.get('PUSHOVER', 'user-token')
-
-#Load sickbeard settings from the config file
-sb_enabled = config.get('SICKBEARD', 'enabled')
-sickbeard_location = config.get('SICKBEARD', 'location')
-sb_host = config.get('SICKBEARD', 'host')
-sb_port = config.get('SICKBEARD', 'port')
-sb_username = config.get('SICKBEARD', 'username')
-sb_portname = config.get('SICKBEARD', 'password')
-sb_ssl = config.get('SICKBEARD', 'ssl')
-
-
-#Load couchpotato settings from the config file
-cp_enabled = config.get('COUCHPOTATO', 'enabled')
-cp_api = config.get('COUCHPOTATO', 'api')
-cp_host = config.get('COUCHPOTATO', 'host')
-cp_port = config.get('COUCHPOTATO', 'port')
-
+try:
+    #Load general setting needed from config file
+    unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
+    unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
+    clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
+    cp_port = config.get('COUCHPOTATO', 'port')
+except ConfigParser.NoSectionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find section")
+     logging.warning(err_msg)
+except ConfigParser.NoOptionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find valid setting")
+     logging.warning(err_msg)
+try:
+    #Load pushover settings from the config file
+    pushover_enabled = config.get('PUSHOVER', 'enabled')
+    app_token = config.get('PUSHOVER', 'app-token')
+    user_token = config.get('PUSHOVER', 'user-token')
+    cp_port = config.get('COUCHPOTATO', 'port')
+except ConfigParser.NoSectionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find section")
+     logging.warning(err_msg)
+except ConfigParser.NoOptionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find valid setting")
+     logging.warning(err_msg)
+try:
+    #Load sickbeard settings from the config file
+    sb_enabled = config.get('SICKBEARD', 'enabled')
+    sickbeard_location = config.get('SICKBEARD', 'location')
+    sb_host = config.get('SICKBEARD', 'host')
+    sb_port = config.get('SICKBEARD', 'port')
+    sb_username = config.get('SICKBEARD', 'username')
+    sb_portname = config.get('SICKBEARD', 'password')
+    sb_ssl = config.get('SICKBEARD', 'ssl')
+    cp_port = config.get('COUCHPOTATO', 'port')
+except ConfigParser.NoSectionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find section")
+     logging.warning(err_msg)
+except ConfigParser.NoOptionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find valid setting")
+     logging.warning(err_msg)
+try:
+    #Load couchpotato settings from the config file
+    cp_enabled = False
+    cp_enabled = config.get('COUCHPOTATO', 'enabled')
+    cp_api = config.get('COUCHPOTATO', 'api')
+    cp_host = config.get('COUCHPOTATO', 'host')
+    cp_port = config.get('COUCHPOTATO', 'port')
+except ConfigParser.NoSectionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find section")
+     logging.warning(err_msg)
+except ConfigParser.NoOptionError as err_msg:
+     logging.warning("Encountered an error loading settings, can not find valid setting")
+     logging.warning(err_msg)
 
 dirs_dumped = 0
 files_dumped = 0
 
 #routine that does the file transfers
 def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
+    if cp_enabled:
+        print(cp_enabled)
+
     dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped
-    if os.path.exists(mount_location + folder_to_dump):  # check if the mounted drive has a dump folder
-        logging.debug('dump folder exists')
+    if os.path.exists(dump_location):  # check if the mounted drive has a dump folder
+        logging.debug('dump location exists')
     else:
-        logging.debug('dump folder doesnt exist, trying to create')
+        logging.debug('dump location doesnt exist, trying to create')
         try:
-            os.makedirs(mount_location + folder_to_dump)
-            logging.debug('dump folder created successfully')
+            os.makedirs(dump_location)
+            logging.debug('dump locaion created successfully')
         except OSError as err_msg:
-            logging.warning("Encountered an OSError, unable to create dump folder")
+            logging.warning("Encountered an OSError, unable to create dump location")
             logging.warning(err_msg)
 
     if os.path.exists(mount_location + folder_to_dump):  # check if the mounted drive has a dump folder
@@ -126,8 +155,10 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
 
             logging.info("done transfering files, see you next time")
             if pushover_enabled:
+                print(pushover_enabled)
                 try:
                     notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
+                    logging.debug('Notified Pushover successfully')
                 except notifications.PushoverError, err:
                     logging.warning('Pushover encounted an error message not sent')
                     logging.warning(err)
