@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.py" afterPath="$PROJECT_DIR$/DumpSite.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notifications.py" afterPath="$PROJECT_DIR$/notifications.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfer.py" afterPath="$PROJECT_DIR$/transfer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -33,16 +32,16 @@
       <file leaf-file-name="DumpSite.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="0" selection-start="5334" selection-end="5334" vertical-scroll-proportion="0.0" vertical-offset="757" max-vertical-offset="2159">
+            <state line="128" column="0" selection-start="5334" selection-end="5334" vertical-scroll-proportion="0.0" vertical-offset="1573" max-vertical-offset="2159">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transfer.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="transfer.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="0" selection-start="1802" selection-end="1802" vertical-scroll-proportion="-10.36" vertical-offset="523" max-vertical-offset="2907">
+            <state line="130" column="22" selection-start="6518" selection-end="6524" vertical-scroll-proportion="0.44160584" vertical-offset="1968" max-vertical-offset="2924">
               <folding>
                 <element signature="e#1154#1169#0" expanded="true" />
               </folding>
@@ -50,10 +49,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DumpSite.cfg" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DumpSite.cfg" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="43" selection-start="835" selection-end="835" vertical-scroll-proportion="0.63822526" vertical-offset="0" max-vertical-offset="986">
+            <state line="16" column="0" selection-start="649" selection-end="649" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="986">
               <folding />
             </state>
           </provider>
@@ -96,9 +95,9 @@
         <option value="$PROJECT_DIR$/tard.py" />
         <option value="$PROJECT_DIR$/DumpSite.cfg.sample" />
         <option value="$PROJECT_DIR$/DumpSite.py" />
-        <option value="$PROJECT_DIR$/transfer.py" />
         <option value="$PROJECT_DIR$/notifications.py" />
         <option value="$PROJECT_DIR$/DumpSite.cfg" />
+        <option value="$PROJECT_DIR$/transfer.py" />
       </list>
     </option>
   </component>
@@ -423,13 +422,18 @@
       <created>1385359533696</created>
       <updated>1385359533697</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Seem to have things working, will now create dump folder if it doesnt already exist.  See issue #7 https://github.com/Sperryfreak01/DumpSite/issues/7">
+      <created>1387959459600</created>
+      <updated>1387959459600</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -444,7 +448,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -452,8 +455,8 @@
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -464,7 +467,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12518302" sideWeight="0.67156863" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16398244" sideWeight="0.67156863" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -486,7 +489,8 @@
     <MESSAGE value="Added a testing workaround that removes the need for a seprate file and removes the need to constantly plub and unplug an external hard drive.  New pushover code not working as it should throughing an http error. the rest of the program is working as expected." />
     <MESSAGE value="added aditional exception handeling for pushover." />
     <MESSAGE value="dropbox is dead and code not tested need to restart pycharm" />
-    <option name="LAST_COMMIT_MESSAGE" value="dropbox is dead and code not tested need to restart pycharm" />
+    <MESSAGE value="Seem to have things working, will now create dump folder if it doesnt already exist.  See issue #7 https://github.com/Sperryfreak01/DumpSite/issues/7" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seem to have things working, will now create dump folder if it doesnt already exist.  See issue #7 https://github.com/Sperryfreak01/DumpSite/issues/7" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -576,22 +580,6 @@
         <state line="14" column="5" selection-start="844" selection-end="844" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DumpSite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="0" selection-start="5334" selection-end="5334" vertical-scroll-proportion="0.0" vertical-offset="1318" max-vertical-offset="2159">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/transfer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="0" selection-start="1802" selection-end="1802" vertical-scroll-proportion="-10.36" vertical-offset="523" max-vertical-offset="2907">
-          <folding>
-            <element signature="e#1154#1169#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/notifications.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="13" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0" vertical-offset="77" max-vertical-offset="663">
@@ -599,10 +587,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DumpSite.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="0" selection-start="5334" selection-end="5334" vertical-scroll-proportion="0.0" vertical-offset="1318" max-vertical-offset="2159">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="43" selection-start="835" selection-end="835" vertical-scroll-proportion="0.63822526" vertical-offset="0" max-vertical-offset="986">
+        <state line="16" column="0" selection-start="649" selection-end="649" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="986">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="22" selection-start="6518" selection-end="6524" vertical-scroll-proportion="0.44160584" vertical-offset="1968" max-vertical-offset="2924">
+          <folding>
+            <element signature="e#1154#1169#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -42,12 +42,12 @@ unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
 clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
 
 #Load pushover settings from the config file
-enable_pushover = config.get('PUSHOVER', 'status')
+pushover_enabled = config.get('PUSHOVER', 'enabled')
 app_token = config.get('PUSHOVER', 'app-token')
 user_token = config.get('PUSHOVER', 'user-token')
 
 #Load sickbeard settings from the config file
-sb_status = config.get('SICKBEARD', 'status')
+sb_enabled = config.get('SICKBEARD', 'enabled')
 sickbeard_location = config.get('SICKBEARD', 'location')
 sb_host = config.get('SICKBEARD', 'host')
 sb_port = config.get('SICKBEARD', 'port')
@@ -57,7 +57,7 @@ sb_ssl = config.get('SICKBEARD', 'ssl')
 
 
 #Load couchpotato settings from the config file
-cp_status = config.get('COUCHPOTATO', 'status')
+cp_enabled = config.get('COUCHPOTATO', 'enabled')
 cp_api = config.get('COUCHPOTATO', 'api')
 cp_host = config.get('COUCHPOTATO', 'host')
 cp_port = config.get('COUCHPOTATO', 'port')
@@ -125,21 +125,22 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning(err_msg)
 
             logging.info("done transfering files, see you next time")
-            #pushover(True,dirs_dumped,files_dumped)
-            try:
-                notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
-            except notifications.PushoverError, err:
-                logging.warning('Pushover encounted an error message not sent')
-                logging.warning(err)
-            subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
+            if pushover_enabled:
+                try:
+                    notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
+                except notifications.PushoverError, err:
+                    logging.warning('Pushover encounted an error message not sent')
+                    logging.warning(err)
 
-            try:
-                params = urllib.urlencode({'movie_folder': dump_location})
-                urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
-                logging.debug('Triggered a CouchPotato scan of DumpFolder')
-            except IOError, err_msg:
-                logging.warning('Unable to reach CouchPotato, check your config')
-                logging.warning(err_msg)
+            if cp_enabled:
+                subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
+                try:
+                    params = urllib.urlencode({'movie_folder': dump_location})
+                    urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
+                    logging.debug('Triggered a CouchPotato scan of DumpFolder')
+                except IOError, err_msg:
+                    logging.warning('Unable to reach CouchPotato, check your config')
+                    logging.warning(err_msg)
 
             if unmount_on_finish:
             #if user elected to unmount on finish then boot that drive out of the system
