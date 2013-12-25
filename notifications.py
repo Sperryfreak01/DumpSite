@@ -19,11 +19,18 @@ def pushover(**kwargs):
     url = urlparse.urljoin(PUSHOVER_API, "messages.json")
     data = urllib.urlencode(kwargs)
     req = urllib2.Request(url, data)
+    print(req.get_method())
+    print(req.get_full_url())
+    print(req.get_data())
     try:
         response = urllib2.urlopen(req)
         output = response.read()
         data = json.loads(output)
+        print(response)
+        print(output)
+        print(data)
     except urllib2.HTTPError, httperror:
+
         raise PushoverError(httperror)
 
     if data['status'] != 1:

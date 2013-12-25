@@ -36,6 +36,11 @@ import ConfigParser
 config = ConfigParser.RawConfigParser()
 config.read('DumpSite.cfg')
 
+#Load general setting needed from config file
+unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
+unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
+clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
+
 #Load pushover settings from the config file
 enable_pushover = config.get('PUSHOVER', 'status')
 app_token = config.get('PUSHOVER', 'app-token')
@@ -62,12 +67,22 @@ dirs_dumped = 0
 files_dumped = 0
 
 #routine that does the file transfers
-def transferfiles(device_file, mount_location, folder_to_dump, dump_location, clean_dumptruck):
+def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
     dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped
+    if os.path.exists(mount_location + folder_to_dump):  # check if the mounted drive has a dump folder
+        logging.debug('dump folder exists')
+    else:
+        logging.debug('dump folder doesnt exist, trying to create')
+        try:
+            os.makedirs(mount_location + folder_to_dump)
+            logging.debug('dump folder created successfully')
+        except OSError as err_msg:
+            logging.warning("Encountered an OSError, unable to create dump folder")
+            logging.warning(err_msg)
 
-    if os.path.exists(mount_location + "/" + folder_to_dump):  # check if the mounted drive has a dump folder
+    if os.path.exists(mount_location + folder_to_dump):  # check if the mounted drive has a dump folder
         logging.info("Found a folder to dump from")
         number_to_dump = len(glob.glob(mount_location + "/" + folder_to_dump + "/*"))  # find the number of files in the folder to be dumped
         if number_to_dump > 0:  # if there are files lets dump em, otherwise what are we doing here?
@@ -78,6 +93,10 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location, cl
                     logging.debug("copying folder: "+dirname + " to " + dump_location)  # call off the transfer with from and to
                     shutil.copytree(dumpsource+"/"+dirname+"/", dump_location+"/"+dirname) # copy folders
                     dirs_dumped += 1
+                    if clean_dumptruck:
+                    #if the user wants a clean dumptruck move the files, otherwise just copy the files
+                         logging.debug("this doesnt do anything yet")
+
                 # rutrow something went wrong...this is as good as it gets now, eventually better debugging
                 except OSError as err_msg:
                     logging.warning("Encountered an OSError, unable to copy dir: " + dirname)
@@ -121,11 +140,6 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location, cl
             except IOError, err_msg:
                 logging.warning('Unable to reach CouchPotato, check your config')
                 logging.warning(err_msg)
-
-
-            if clean_dumptruck:
-            #if the user wants a clean dumptruck move the files, otherwise just copy the files
-                logging.debug("this doesnt do anything yet")
 
             if unmount_on_finish:
             #if user elected to unmount on finish then boot that drive out of the system

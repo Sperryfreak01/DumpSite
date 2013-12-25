@@ -36,12 +36,10 @@ config.read('DumpSite.cfg')
 
 #Load general settings from the config file
 dubug_level = config.get('GENERAL', 'debug-level')
-unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
-unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
 mount_location = config.get('GENERAL', 'mount-location')
 folder_to_dump = config.get('GENERAL', 'folder-to-dump')
 dump_location = config.get('GENERAL', 'dump-location')
-clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
+
 
 
 def endprog():
@@ -115,7 +113,7 @@ class DeviceAddedListener:
 
 if __name__ == '__main__':
     if testing:
-        transfer.transferfiles("this is only a test", mount_location, folder_to_dump, dump_location, clean_dumptruck)
+        transfer.transferfiles("this is only a test", mount_location, folder_to_dump, dump_location)
     else:
         from dbus.mainloop.glib import DBusGMainLoop
         atexit.register(endprog)
