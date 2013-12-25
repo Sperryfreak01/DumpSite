@@ -39,14 +39,13 @@ mount_location = config.get('GENERAL', 'mount-location')
 folder_to_dump = config.get('GENERAL', 'folder-to-dump')
 dump_location = config.get('GENERAL', 'dump-location')
 
-
+log_type = ('logging.'+logging_level)
+logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='/var/log/dumpsite.log',level=logging.DEBUG)
+logging.handlers.TimedRotatingFileHandler(filename='/var/log/dumpsite.log', when='midnight',backupCount=7, encoding=None, delay=False, utc=False)
+logging.info('DumpSite service started')
 
 def endprog():
     logging.info('DumpSite service stopping')
-log_type = ('logging.'+logging_level)
-logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='/var/log/dumpsite.log',level=log_type)
-logging.handlers.TimedRotatingFileHandler(filename='/var/log/dumpsite.log', when='midnight',backupCount=7, encoding=None, delay=False, utc=False)
-logging.info('DumpSite service started')
 
 
 class DeviceAddedListener:

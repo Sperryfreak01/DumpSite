@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.cfg.sample" afterPath="$PROJECT_DIR$/DumpSite.cfg.sample" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.py" afterPath="$PROJECT_DIR$/DumpSite.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notifications.py" afterPath="$PROJECT_DIR$/notifications.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfer.py" afterPath="$PROJECT_DIR$/transfer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -35,7 +32,7 @@
       <file leaf-file-name="DumpSite.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="0" selection-start="1642" selection-end="1642" vertical-scroll-proportion="-10.88" vertical-offset="425" max-vertical-offset="2261">
+            <state line="30" column="14" selection-start="1304" selection-end="1304" vertical-scroll-proportion="-3.4" vertical-offset="425" max-vertical-offset="2244">
               <folding>
                 <element signature="e#1155#1166#0" expanded="true" />
               </folding>
@@ -46,7 +43,7 @@
       <file leaf-file-name="transfer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/transfer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="47" selection-start="3103" selection-end="3103" vertical-scroll-proportion="-19.88" vertical-offset="693" max-vertical-offset="3451">
+            <state line="50" column="40" selection-start="2098" selection-end="2098" vertical-scroll-proportion="-4.08" vertical-offset="748" max-vertical-offset="3332">
               <folding>
                 <element signature="e#1154#1169#0" expanded="true" />
               </folding>
@@ -57,7 +54,7 @@
       <file leaf-file-name="DumpSite.cfg" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="19" selection-start="93" selection-end="93" vertical-scroll-proportion="0.087030716" vertical-offset="0" max-vertical-offset="986">
+            <state line="27" column="14" selection-start="969" selection-end="969" vertical-scroll-proportion="0.43515357" vertical-offset="204" max-vertical-offset="986">
               <folding />
             </state>
           </provider>
@@ -437,7 +434,11 @@
       <created>1387960540843</created>
       <updated>1387960540843</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="fixed the dump site folder not existing (issue #7)  previous fix checked to see if the source folder exsisted and then created it.  should have checked on the destination folder.">
+      <created>1387999255304</created>
+      <updated>1387999255304</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -482,7 +483,8 @@
     <MESSAGE value="dropbox is dead and code not tested need to restart pycharm" />
     <MESSAGE value="Seem to have things working, will now create dump folder if it doesnt already exist.  See issue #7 https://github.com/Sperryfreak01/DumpSite/issues/7" />
     <MESSAGE value="added the ability to enable/disable pushover, couchpotato, and sickbeard support from the config file." />
-    <option name="LAST_COMMIT_MESSAGE" value="added the ability to enable/disable pushover, couchpotato, and sickbeard support from the config file." />
+    <MESSAGE value="fixed the dump site folder not existing (issue #7)  previous fix checked to see if the source folder exsisted and then created it.  should have checked on the destination folder." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the dump site folder not existing (issue #7)  previous fix checked to see if the source folder exsisted and then created it.  should have checked on the destination folder." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -593,7 +595,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="1642" selection-end="1642" vertical-scroll-proportion="-10.88" vertical-offset="425" max-vertical-offset="2261">
+        <state line="30" column="14" selection-start="1304" selection-end="1304" vertical-scroll-proportion="-3.4" vertical-offset="425" max-vertical-offset="2244">
           <folding>
             <element signature="e#1155#1166#0" expanded="true" />
           </folding>
@@ -602,7 +604,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/transfer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="47" selection-start="3103" selection-end="3103" vertical-scroll-proportion="-19.88" vertical-offset="693" max-vertical-offset="3451">
+        <state line="50" column="40" selection-start="2098" selection-end="2098" vertical-scroll-proportion="-4.08" vertical-offset="748" max-vertical-offset="3332">
           <folding>
             <element signature="e#1154#1169#0" expanded="true" />
           </folding>
@@ -611,7 +613,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="19" selection-start="93" selection-end="93" vertical-scroll-proportion="0.087030716" vertical-offset="0" max-vertical-offset="986">
+        <state line="27" column="14" selection-start="969" selection-end="969" vertical-scroll-proportion="0.43515357" vertical-offset="204" max-vertical-offset="986">
           <folding />
         </state>
       </provider>

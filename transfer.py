@@ -40,7 +40,6 @@ try:
     unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
     unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
     clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
-    cp_port = config.get('COUCHPOTATO', 'port')
 except ConfigParser.NoSectionError as err_msg:
      logging.warning("Encountered an error loading settings, can not find section")
      logging.warning(err_msg)
@@ -49,10 +48,9 @@ except ConfigParser.NoOptionError as err_msg:
      logging.warning(err_msg)
 try:
     #Load pushover settings from the config file
-    pushover_enabled = config.get('PUSHOVER', 'enabled')
+    pushover_enabled = config.getboolean('PUSHOVER', 'enabled')
     app_token = config.get('PUSHOVER', 'app-token')
     user_token = config.get('PUSHOVER', 'user-token')
-    cp_port = config.get('COUCHPOTATO', 'port')
 except ConfigParser.NoSectionError as err_msg:
      logging.warning("Encountered an error loading settings, can not find section")
      logging.warning(err_msg)
@@ -61,14 +59,13 @@ except ConfigParser.NoOptionError as err_msg:
      logging.warning(err_msg)
 try:
     #Load sickbeard settings from the config file
-    sb_enabled = config.get('SICKBEARD', 'enabled')
+    sb_enabled = config.getboolean('SICKBEARD', 'enabled')
     sickbeard_location = config.get('SICKBEARD', 'location')
     sb_host = config.get('SICKBEARD', 'host')
     sb_port = config.get('SICKBEARD', 'port')
     sb_username = config.get('SICKBEARD', 'username')
-    sb_portname = config.get('SICKBEARD', 'password')
+    sb_password = config.get('SICKBEARD', 'password')
     sb_ssl = config.get('SICKBEARD', 'ssl')
-    cp_port = config.get('COUCHPOTATO', 'port')
 except ConfigParser.NoSectionError as err_msg:
      logging.warning("Encountered an error loading settings, can not find section")
      logging.warning(err_msg)
@@ -77,8 +74,7 @@ except ConfigParser.NoOptionError as err_msg:
      logging.warning(err_msg)
 try:
     #Load couchpotato settings from the config file
-    cp_enabled = False
-    cp_enabled = config.get('COUCHPOTATO', 'enabled')
+    cp_enabled = config.getboolean('COUCHPOTATO', 'enabled')
     cp_api = config.get('COUCHPOTATO', 'api')
     cp_host = config.get('COUCHPOTATO', 'host')
     cp_port = config.get('COUCHPOTATO', 'port')
@@ -94,9 +90,6 @@ files_dumped = 0
 
 #routine that does the file transfers
 def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
-    if cp_enabled:
-        print(cp_enabled)
-
     dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped
@@ -154,7 +147,7 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning(err_msg)
 
             logging.info("done transfering files, see you next time")
-            if pushover_enabled:
+            if pushover_enabled == True:
                 print(pushover_enabled)
                 try:
                     notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
@@ -163,7 +156,7 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning('Pushover encounted an error message not sent')
                     logging.warning(err)
 
-            if cp_enabled:
+            if cp_enabled == True:
                 subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
                 try:
                     params = urllib.urlencode({'movie_folder': dump_location})
