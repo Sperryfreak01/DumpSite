@@ -27,6 +27,7 @@ import logging.handlers
 import atexit
 import transfer
 import ConfigParser
+import notifications
 
 testing = True
 
@@ -41,12 +42,60 @@ try:
     dump_location = config.get('GENERAL', 'dump-location')
     unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
     unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
+    clean_dumptruck = config.getboolean('GENERAL', 'clean-dumptruck')
 except ConfigParser.NoSectionError as err_msg:
     logging.warning("Encountered an error loading settings, can not find section")
     logging.warning(err_msg)
 except ConfigParser.NoOptionError as err_msg:
     logging.warning("Encountered an error loading settings, can not find valid setting")
     logging.warning(err_msg)
+
+    #Load pushover settings from the config file
+try:
+    pushover_enabled = config.getboolean('PUSHOVER', 'enabled')
+    app_token = config.get('PUSHOVER', 'app-token')
+    user_token = config.get('PUSHOVER', 'user-token')
+except ConfigParser.NoSectionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
+    pushover_enabled = False
+except ConfigParser.NoOptionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
+    pushover_enabled = False
+
+#Load sickbeard settings from the config file
+try:
+    sb_enabled = config.getboolean('SICKBEARD', 'enabled')
+    sickbeard_location = config.get('SICKBEARD', 'location')
+    sb_host = config.get('SICKBEARD', 'host')
+    sb_port = config.get('SICKBEARD', 'port')
+    sb_username = config.get('SICKBEARD', 'username')
+    sb_password = config.get('SICKBEARD', 'password')
+    sb_ssl = config.get('SICKBEARD', 'ssl')
+except ConfigParser.NoSectionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
+    sb_enabled = False
+except ConfigParser.NoOptionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
+    sb_enabled = False
+
+#Load couchpotato settings from the config file
+try:
+    cp_enabled = config.getboolean('COUCHPOTATO', 'enabled')
+    cp_api = config.get('COUCHPOTATO', 'api')
+    cp_host = config.get('COUCHPOTATO', 'host')
+    cp_port = config.get('COUCHPOTATO', 'port')
+except ConfigParser.NoSectionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
+    cp_enabled = False
+except ConfigParser.NoOptionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
+    cp_enabled = False
 
 log_type = ('logging.'+logging_level)
 logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='/var/log/dumpsite.log',level=logging.DEBUG)
@@ -99,7 +148,7 @@ class DeviceAddedListener:
 
         if return_code == 0:
             logging.info('drive mounted successfully!')
-            transfer_status = transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location)
+            transfer_status, dirs_dumped, files_dumped = transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location,clean_dumptruck)
         #mount return/failure codes
         if return_code == 1:
             logging.warning('incorrect invocation or permissions')
@@ -120,16 +169,33 @@ class DeviceAddedListener:
 
         if transfer_status == 0:
             logging.info("done transfering files, see you next time")
+
+            if pushover_enabled:
+                try:
+                    notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
+                    logging.debug('Notified Pushover successfully')
+                except notifications.PushoverError, err:
+                    logging.warning('Pushover encounted an error message not sent')
+                    logging.warning(err)
+
+            if sb_enabled:
+                notifications.sickbeard(sickbeard_location, dump_location)
+
+            if cp_enabled:
+                notifications.couchpotato(dump_location,cp_host,cp_port,cp_api)
+
             if unmount_on_finish:
             #if user elected to unmount on finish then boot that drive out of the system
                 subprocess.call(["umount", device_file])
                 logging.info(device_file + " unmounted")
+
         if transfer_status == 1:
             #if the users wants an unmount on a soft fail then the dude abides
             logging.info("Found nothing to dump")
             if unmount_on_fail:
                 subprocess.call(["umount", device_file])
                 logging.info(device_file + " unmounted")
+
         if transfer_status == 2:
             #if the users wants an unmount on a soft fail then the dude abides
             logging.info("Found no folder to dump from")
@@ -138,13 +204,26 @@ class DeviceAddedListener:
                 logging.info(device_file + " unmounted")
 
 
-
 if __name__ == '__main__':
     if testing:
         device_file = "this is only a test"
-        transfer_status = transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location)
+        transfer_status, dirs_dumped, files_dumped = transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location,clean_dumptruck)
         if transfer_status == 0:
             logging.info("done transfering files, see you next time")
+            if pushover_enabled:
+                try:
+                    notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
+                    logging.debug('Notified Pushover successfully')
+                except notifications.PushoverError, err:
+                    logging.warning('Pushover encounted an error message not sent')
+                    logging.warning(err)
+
+            if sb_enabled:
+                notifications.sickbeard(sickbeard_location, dump_location)
+
+            if cp_enabled:
+                notifications.couchpotato(dump_location,cp_host,cp_port,cp_api)
+
             if unmount_on_finish:
             #if user elected to unmount on finish then boot that drive out of the system
                 subprocess.call(["umount", device_file])

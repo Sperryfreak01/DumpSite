@@ -23,79 +23,17 @@ import pushover
 import dbus
 import gobject
 import os
-import subprocess
 import logging
 import logging.handlers
 import glob
 import shutil
-import notifications
-import ConfigParser
 
-config = ConfigParser.RawConfigParser()
-config.read('DumpSite.cfg')
-
-#Load general setting needed from config file
-try:
-    clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
-except ConfigParser.NoSectionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find section")
-    logging.warning(err_msg)
-except ConfigParser.NoOptionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find valid setting")
-    logging.warning(err_msg)
-
-#Load pushover settings from the config file
-try:
-    pushover_enabled = config.getboolean('PUSHOVER', 'enabled')
-    app_token = config.get('PUSHOVER', 'app-token')
-    user_token = config.get('PUSHOVER', 'user-token')
-except ConfigParser.NoSectionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find section")
-    logging.warning(err_msg)
-    pushover_enabled = False
-except ConfigParser.NoOptionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find valid setting")
-    logging.warning(err_msg)
-    pushover_enabled = False
-
-#Load sickbeard settings from the config file
-try:
-    sb_enabled = config.getboolean('SICKBEARD', 'enabled')
-    sickbeard_location = config.get('SICKBEARD', 'location')
-    sb_host = config.get('SICKBEARD', 'host')
-    sb_port = config.get('SICKBEARD', 'port')
-    sb_username = config.get('SICKBEARD', 'username')
-    sb_password = config.get('SICKBEARD', 'password')
-    sb_ssl = config.get('SICKBEARD', 'ssl')
-except ConfigParser.NoSectionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find section")
-    logging.warning(err_msg)
-    sb_enabled = False
-except ConfigParser.NoOptionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find valid setting")
-    logging.warning(err_msg)
-    sb_enabled = False
-
-#Load couchpotato settings from the config file
-try:
-    cp_enabled = config.getboolean('COUCHPOTATO', 'enabled')
-    cp_api = config.get('COUCHPOTATO', 'api')
-    cp_host = config.get('COUCHPOTATO', 'host')
-    cp_port = config.get('COUCHPOTATO', 'port')
-except ConfigParser.NoSectionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find section")
-    logging.warning(err_msg)
-    cp_enabled = False
-except ConfigParser.NoOptionError as err_msg:
-    logging.warning("Encountered an error loading settings, can not find valid setting")
-    logging.warning(err_msg)
-    cp_enabled = False
 
 dirs_dumped = 0
 files_dumped = 0
 
 #routine that does the file transfers
-def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
+def transferfiles(device_file, mount_location, folder_to_dump, dump_location,cleanup):
     dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped
@@ -121,7 +59,7 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.debug("copying folder: "+dirname + " to " + dump_location)  # call off the transfer with from and to
                     shutil.copytree(dumpsource+"/"+dirname+"/", dump_location+"/"+dirname) # copy folders
                     dirs_dumped += 1
-                    if clean_dumptruck:
+                    if cleanup:
                     #if the user wants a clean dumptruck move the files, otherwise just copy the files
                          logging.debug("this doesnt do anything yet")
 
@@ -153,30 +91,17 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning(err_msg)
 
             logging.info("done transfering files, see you next time")
-            if pushover_enabled:
-                try:
-                    notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
-                    logging.debug('Notified Pushover successfully')
-                except notifications.PushoverError, err:
-                    logging.warning('Pushover encounted an error message not sent')
-                    logging.warning(err)
-
-            if sb_enabled:
-                notifications.sickbeard(sickbeard_location, dump_location)
-
-            if cp_enabled:
-                notifications.couchpotato(dump_location,cp_host,cp_port,cp_api)
 
             #return 0 on successfully completing a dump
-            return 0
+            return(0,dirs_dumped,files_dumped)
 
         else:
             #return a 1 if the dump failed because there were no files
-            return 1
+            return(1,0,0)
 
     else:
         #return a 1 if the dump failed because the source folder wasnt found
-        return 2
+        return(2,0,0)
 
 
 

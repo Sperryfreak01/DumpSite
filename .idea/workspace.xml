@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.cfg.sample" afterPath="$PROJECT_DIR$/DumpSite.cfg.sample" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.py" afterPath="$PROJECT_DIR$/DumpSite.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notifications.py" afterPath="$PROJECT_DIR$/notifications.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfer.py" afterPath="$PROJECT_DIR$/transfer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,24 +29,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DumpSite.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DumpSite.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="144" column="60" selection-start="6589" selection-end="6589" vertical-scroll-proportion="0.31413612" vertical-offset="1010" max-vertical-offset="1819">
+            <state line="138" column="19" selection-start="6107" selection-end="6107" vertical-scroll-proportion="19.24" vertical-offset="2827" max-vertical-offset="4420">
               <folding>
                 <element signature="e#1155#1166#0" expanded="true" />
-                <element signature="e#2617#2917#0" expanded="false" />
-                <element signature="e#2955#3250#0" expanded="false" />
-                <element signature="e#3295#6438#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transfer.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="transfer.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="1515" selection-end="1837" vertical-scroll-proportion="-9.0" vertical-offset="438" max-vertical-offset="3230">
+            <state line="95" column="45" selection-start="5114" selection-end="5138" vertical-scroll-proportion="0.57575756" vertical-offset="1292" max-vertical-offset="1955">
               <folding>
                 <element signature="e#1154#1169#0" expanded="true" />
               </folding>
@@ -70,7 +65,7 @@
       <file leaf-file-name="DumpSite.cfg" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="28" selection-start="1303" selection-end="1303" vertical-scroll-proportion="0.0" vertical-offset="196" max-vertical-offset="986">
+            <state line="42" column="28" selection-start="1303" selection-end="1303" vertical-scroll-proportion="0.0" vertical-offset="145" max-vertical-offset="986">
               <folding />
             </state>
           </provider>
@@ -460,7 +455,11 @@
       <created>1388032121698</created>
       <updated>1388032121698</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Successfully split the unmount code from the file transfer subroutine, next step is to call the notifictions from the main cody instead of the file transfer code.">
+      <created>1388038416316</created>
+      <updated>1388038416316</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -508,7 +507,8 @@
     <MESSAGE value="fixed the dump site folder not existing (issue #7)  previous fix checked to see if the source folder exsisted and then created it.  should have checked on the destination folder." />
     <MESSAGE value="Fixed loading from config to fail a bit more gracefully.  Also go the &quot;ENABLED&quot; fields in the config files to work.  Stupid getboolean." />
     <MESSAGE value="Cleaned up the enabling and disabling of the notifications based on config settings.  Issue #1 has been implimented but still needs refinement." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up the enabling and disabling of the notifications based on config settings.  Issue #1 has been implimented but still needs refinement." />
+    <MESSAGE value="Successfully split the unmount code from the file transfer subroutine, next step is to call the notifictions from the main cody instead of the file transfer code." />
+    <option name="LAST_COMMIT_MESSAGE" value="Successfully split the unmount code from the file transfer subroutine, next step is to call the notifictions from the main cody instead of the file transfer code." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -521,9 +521,6 @@
         <state line="117" column="116" selection-start="5302" selection-end="5302" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2312">
           <folding>
             <element signature="e#1155#1166#0" expanded="true" />
-            <element signature="e#2617#2917#0" expanded="false" />
-            <element signature="e#2955#3250#0" expanded="false" />
-            <element signature="e#3295#6438#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -588,9 +585,6 @@
         <state line="78" column="0" selection-start="3444" selection-end="3444" vertical-scroll-proportion="0.0" vertical-offset="1326" max-vertical-offset="2006">
           <folding>
             <element signature="e#1155#1166#0" expanded="true" />
-            <element signature="e#2617#2917#0" expanded="false" />
-            <element signature="e#2955#3250#0" expanded="false" />
-            <element signature="e#3295#6438#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -614,39 +608,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="28" selection-start="1303" selection-end="1303" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="986">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/notifications.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="124" selection-end="124" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935">
+        <state line="8" column="0" selection-start="124" selection-end="124" vertical-scroll-proportion="0.0" vertical-offset="43" max-vertical-offset="935">
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/transfer.py">
+    <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1515" selection-end="1837" vertical-scroll-proportion="-9.0" vertical-offset="438" max-vertical-offset="3230">
+        <state line="138" column="19" selection-start="6107" selection-end="6107" vertical-scroll-proportion="19.24" vertical-offset="2827" max-vertical-offset="4420">
           <folding>
-            <element signature="e#1154#1169#0" expanded="true" />
+            <element signature="e#1155#1166#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DumpSite.py">
+    <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="144" column="60" selection-start="6589" selection-end="6589" vertical-scroll-proportion="0.31413612" vertical-offset="1010" max-vertical-offset="1819">
+        <state line="42" column="28" selection-start="1303" selection-end="1303" vertical-scroll-proportion="0.0" vertical-offset="196" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="45" selection-start="5114" selection-end="5138" vertical-scroll-proportion="0.57575756" vertical-offset="1292" max-vertical-offset="1955">
           <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-            <element signature="e#2617#2917#0" expanded="false" />
-            <element signature="e#2955#3250#0" expanded="false" />
-            <element signature="e#3295#6438#0" expanded="false" />
+            <element signature="e#1154#1169#0" expanded="true" />
           </folding>
         </state>
       </provider>
