@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.py" afterPath="$PROJECT_DIR$/DumpSite.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfer.py" afterPath="$PROJECT_DIR$/transfer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,29 +31,25 @@
       <file leaf-file-name="DumpSite.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="14" selection-start="1304" selection-end="1304" vertical-scroll-proportion="-3.4" vertical-offset="425" max-vertical-offset="2244">
-              <folding>
-                <element signature="e#1155#1166#0" expanded="true" />
-              </folding>
+            <state line="30" column="14" selection-start="1304" selection-end="1304" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="2244">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transfer.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="transfer.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="40" selection-start="2098" selection-end="2098" vertical-scroll-proportion="-4.08" vertical-offset="748" max-vertical-offset="3332">
-              <folding>
-                <element signature="e#1154#1169#0" expanded="true" />
-              </folding>
+            <state line="183" column="0" selection-start="9154" selection-end="9154" vertical-scroll-proportion="0.9703316" vertical-offset="2351" max-vertical-offset="3400">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DumpSite.cfg" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DumpSite.cfg" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="14" selection-start="969" selection-end="969" vertical-scroll-proportion="0.43515357" vertical-offset="204" max-vertical-offset="986">
+            <state line="27" column="14" selection-start="969" selection-end="969" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="986">
               <folding />
             </state>
           </provider>
@@ -63,10 +58,8 @@
       <file leaf-file-name="notifications.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/notifications.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="9" selection-start="66" selection-end="66" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state line="4" column="9" selection-start="66" selection-end="66" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="629">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -100,8 +93,8 @@
         <option value="$PROJECT_DIR$/notifications.py" />
         <option value="$PROJECT_DIR$/DumpSite.cfg.sample" />
         <option value="$PROJECT_DIR$/DumpSite.py" />
-        <option value="$PROJECT_DIR$/transfer.py" />
         <option value="$PROJECT_DIR$/DumpSite.cfg" />
+        <option value="$PROJECT_DIR$/transfer.py" />
       </list>
     </option>
   </component>
@@ -175,14 +168,14 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="last_opened_file_path" value="C:/Python27/kivy/Python/python.exe" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -438,14 +431,17 @@
       <created>1387999255304</created>
       <updated>1387999255304</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fixed loading from config to fail a bit more gracefully.  Also go the &quot;ENABLED&quot; fields in the config files to work.  Stupid getboolean.">
+      <created>1388002140284</created>
+      <updated>1388002140284</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -460,6 +456,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -484,7 +481,8 @@
     <MESSAGE value="Seem to have things working, will now create dump folder if it doesnt already exist.  See issue #7 https://github.com/Sperryfreak01/DumpSite/issues/7" />
     <MESSAGE value="added the ability to enable/disable pushover, couchpotato, and sickbeard support from the config file." />
     <MESSAGE value="fixed the dump site folder not existing (issue #7)  previous fix checked to see if the source folder exsisted and then created it.  should have checked on the destination folder." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the dump site folder not existing (issue #7)  previous fix checked to see if the source folder exsisted and then created it.  should have checked on the destination folder." />
+    <MESSAGE value="Fixed loading from config to fail a bit more gracefully.  Also go the &quot;ENABLED&quot; fields in the config files to work.  Stupid getboolean." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed loading from config to fail a bit more gracefully.  Also go the &quot;ENABLED&quot; fields in the config files to work.  Stupid getboolean." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -495,18 +493,14 @@
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="117" column="116" selection-start="5302" selection-end="5302" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2312">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/transfer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="64" column="93" selection-start="2393" selection-end="2393" vertical-scroll-proportion="0.0" vertical-offset="1088" max-vertical-offset="2669">
-          <folding>
-            <element signature="e#1154#1169#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -520,27 +514,21 @@
     <entry file="file://$PROJECT_DIR$/notifications.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="14" selection-start="678" selection-end="678" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="612">
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/transfer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="0" selection-start="1321" selection-end="2383" vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="2397">
-          <folding>
-            <element signature="e#1154#1169#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/notifications.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="43" column="0" selection-start="1167" selection-end="1167" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1496">
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -559,9 +547,7 @@
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="0" selection-start="3444" selection-end="3444" vertical-scroll-proportion="0.0" vertical-offset="1326" max-vertical-offset="2006">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -573,17 +559,13 @@
     <entry file="file://$PROJECT_DIR$/notifications.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="9" selection-start="66" selection-end="66" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.cfg.sample">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="787" selection-end="787" vertical-scroll-proportion="0.21672355" vertical-offset="94" max-vertical-offset="782">
-          <folding />
-        </state>
+        <state line="13" column="0" selection-start="787" selection-end="787" vertical-scroll-proportion="0.21672355" vertical-offset="94" max-vertical-offset="782" />
       </provider>
     </entry>
     <entry file="file://C:/Python27/Lib/ConfigParser.py">
@@ -595,25 +577,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="14" selection-start="1304" selection-end="1304" vertical-scroll-proportion="-3.4" vertical-offset="425" max-vertical-offset="2244">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/transfer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="40" selection-start="2098" selection-end="2098" vertical-scroll-proportion="-4.08" vertical-offset="748" max-vertical-offset="3332">
-          <folding>
-            <element signature="e#1154#1169#0" expanded="true" />
-          </folding>
+        <state line="30" column="14" selection-start="1304" selection-end="1304" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="2244">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="14" selection-start="969" selection-end="969" vertical-scroll-proportion="0.43515357" vertical-offset="204" max-vertical-offset="986">
+        <state line="27" column="14" selection-start="969" selection-end="969" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="183" column="0" selection-start="9154" selection-end="9154" vertical-scroll-proportion="0.9703316" vertical-offset="2351" max-vertical-offset="3400">
           <folding />
         </state>
       </provider>

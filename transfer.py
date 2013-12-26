@@ -35,30 +35,35 @@ import ConfigParser
 
 config = ConfigParser.RawConfigParser()
 config.read('DumpSite.cfg')
+
+#Load general setting needed from config file
 try:
-    #Load general setting needed from config file
     unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
     unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
     clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
 except ConfigParser.NoSectionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find section")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
 except ConfigParser.NoOptionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find valid setting")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
+
+#Load pushover settings from the config file
 try:
-    #Load pushover settings from the config file
     pushover_enabled = config.getboolean('PUSHOVER', 'enabled')
     app_token = config.get('PUSHOVER', 'app-token')
     user_token = config.get('PUSHOVER', 'user-token')
 except ConfigParser.NoSectionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find section")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
+    pushover_enabled = False
 except ConfigParser.NoOptionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find valid setting")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
+    pushover_enabled = False
+
+#Load sickbeard settings from the config file
 try:
-    #Load sickbeard settings from the config file
     sb_enabled = config.getboolean('SICKBEARD', 'enabled')
     sickbeard_location = config.get('SICKBEARD', 'location')
     sb_host = config.get('SICKBEARD', 'host')
@@ -67,23 +72,28 @@ try:
     sb_password = config.get('SICKBEARD', 'password')
     sb_ssl = config.get('SICKBEARD', 'ssl')
 except ConfigParser.NoSectionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find section")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
+    sb_enabled = False
 except ConfigParser.NoOptionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find valid setting")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
+    sb_enabled = False
+
+#Load couchpotato settings from the config file
 try:
-    #Load couchpotato settings from the config file
     cp_enabled = config.getboolean('COUCHPOTATO', 'enabled')
     cp_api = config.get('COUCHPOTATO', 'api')
     cp_host = config.get('COUCHPOTATO', 'host')
     cp_port = config.get('COUCHPOTATO', 'port')
 except ConfigParser.NoSectionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find section")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
+    cp_enabled = False
 except ConfigParser.NoOptionError as err_msg:
-     logging.warning("Encountered an error loading settings, can not find valid setting")
-     logging.warning(err_msg)
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
+    cp_enabled = False
 
 dirs_dumped = 0
 files_dumped = 0
@@ -147,7 +157,7 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning(err_msg)
 
             logging.info("done transfering files, see you next time")
-            if pushover_enabled == True:
+            if pushover_enabled:
                 print(pushover_enabled)
                 try:
                     notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
@@ -156,8 +166,14 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning('Pushover encounted an error message not sent')
                     logging.warning(err)
 
-            if cp_enabled == True:
-                subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
+            if sb_enabled:
+                try:
+                    subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
+                    logging.debug('Triggered a SickBeard scan of DumpFolder')
+                except:
+                    logging.warning('Unable to reach SickBeard, check your config')
+
+            if cp_enabled:
                 try:
                     params = urllib.urlencode({'movie_folder': dump_location})
                     urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
