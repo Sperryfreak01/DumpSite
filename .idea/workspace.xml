@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="Changed from test mode to release mode">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.py" afterPath="$PROJECT_DIR$/DumpSite.py" />
+    <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DumpSite.iws" />
@@ -31,10 +30,8 @@
       <file leaf-file-name="DumpSite.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DumpSite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="14" selection-start="1325" selection-end="1325" vertical-scroll-proportion="0.9069343" vertical-offset="30" max-vertical-offset="4420">
-              <folding>
-                <element signature="e#1155#1166#0" expanded="true" />
-              </folding>
+            <state line="23" column="17" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.6587591" vertical-offset="30" max-vertical-offset="4420">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -470,7 +467,11 @@
       <created>1388040763455</created>
       <updated>1388040763455</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Ment to change master branch to release mode accidentally changed development branch too.  Reverting to testing mode for Dev branch">
+      <created>1388040918965</created>
+      <updated>1388040918965</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -521,7 +522,8 @@
     <MESSAGE value="Successfully split the unmount code from the file transfer subroutine, next step is to call the notifictions from the main cody instead of the file transfer code." />
     <MESSAGE value="Notifications decoupled from the transfer subroutines,  1 function 1 purpose" />
     <MESSAGE value="Changed from test mode to release mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed from test mode to release mode" />
+    <MESSAGE value="Ment to change master branch to release mode accidentally changed development branch too.  Reverting to testing mode for Dev branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ment to change master branch to release mode accidentally changed development branch too.  Reverting to testing mode for Dev branch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -532,9 +534,7 @@
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="117" column="116" selection-start="5302" selection-end="5302" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2312">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -596,9 +596,7 @@
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="0" selection-start="3444" selection-end="3444" vertical-scroll-proportion="0.0" vertical-offset="1326" max-vertical-offset="2006">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -648,10 +646,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="14" selection-start="1325" selection-end="1325" vertical-scroll-proportion="0.9069343" vertical-offset="30" max-vertical-offset="4420">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+        <state line="23" column="17" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.6587591" vertical-offset="30" max-vertical-offset="4420">
+          <folding />
         </state>
       </provider>
     </entry>
