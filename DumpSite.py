@@ -29,7 +29,7 @@ import transfer
 import ConfigParser
 import notifications
 
-testing = False
+testing = True
 
 config = ConfigParser.RawConfigParser()
 config.read('DumpSite.cfg')
