@@ -11,13 +11,13 @@ dump-location = /home/user          # aboslute location to dump files to
 [PUSHOVER]
 # PUSHOVER NOTIFICATION REPORTING - DISABLED BY DEFAULT
 
-pushover-status = disable           #ENABLE/DISABLE
+enabled = disable           #ENABLE/DISABLE
 app-token  =
 user-token =
 
 [SICKBEARD]
 
-status = disable                 #ENABLE/DISABLE
+enabled = disable                 #ENABLE/DISABLE
 host =
 port =
 username =
@@ -27,10 +27,17 @@ ssl =
 [COUCHPOTATO]
 #ENABLE COUCHPOTATO SUPPORT TO SCAN FOLDER AFTER SUCCESSFUL DUMP
 
-status = disable                 #ENABLE/DISABLE
-api =
-host =
-port =
+#True to enable CouchPotato scanning
+enabled = False
+
+#API can be found in your CouchPotato settings
+api = abc123xyz987
+
+#URL or ip address to your CouchPotato server, HTTPS not supported
+host = http://example.com
+
+#Port number your CouchPotato server listens on
+port = 8080
 
 [GMAIL]
 

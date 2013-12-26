@@ -23,51 +23,32 @@ import pushover
 import dbus
 import gobject
 import os
-import subprocess
 import logging
 import logging.handlers
 import glob
 import shutil
-import urllib2
-import urllib
-import notifications
-import ConfigParser
-
-config = ConfigParser.RawConfigParser()
-config.read('DumpSite.cfg')
-
-#Load pushover settings from the config file
-enable_pushover = config.get('PUSHOVER', 'status')
-app_token = config.get('PUSHOVER', 'app-token')
-user_token = config.get('PUSHOVER', 'user-token')
-
-#Load sickbeard settings from the config file
-sb_status = config.get('SICKBEARD', 'status')
-sickbeard_location = config.get('SICKBEARD', 'location')
-sb_host = config.get('SICKBEARD', 'host')
-sb_port = config.get('SICKBEARD', 'port')
-sb_username = config.get('SICKBEARD', 'username')
-sb_portname = config.get('SICKBEARD', 'password')
-sb_ssl = config.get('SICKBEARD', 'ssl')
-
-
-#Load couchpotato settings from the config file
-cp_status = config.get('COUCHPOTATO', 'status')
-cp_api = config.get('COUCHPOTATO', 'api')
-cp_host = config.get('COUCHPOTATO', 'host')
-cp_port = config.get('COUCHPOTATO', 'port')
 
 
 dirs_dumped = 0
 files_dumped = 0
 
 #routine that does the file transfers
-def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
+def transferfiles(device_file, mount_location, folder_to_dump, dump_location,cleanup):
     dumpsource = mount_location+"/"+folder_to_dump
     global dirs_dumped
     global files_dumped
+    if os.path.exists(dump_location):  # check if the mounted drive has a dump folder
+        logging.debug('dump location exists')
+    else:
+        logging.debug('dump location doesnt exist, trying to create')
+        try:
+            os.makedirs(dump_location)
+            logging.debug('dump locaion created successfully')
+        except OSError as err_msg:
+            logging.warning("Encountered an OSError, unable to create dump location")
+            logging.warning(err_msg)
 
-    if os.path.exists(mount_location + "/" + folder_to_dump):  # check if the mounted drive has a dump folder
+    if os.path.exists(mount_location + folder_to_dump):  # check if the mounted drive has a dump folder
         logging.info("Found a folder to dump from")
         number_to_dump = len(glob.glob(mount_location + "/" + folder_to_dump + "/*"))  # find the number of files in the folder to be dumped
         if number_to_dump > 0:  # if there are files lets dump em, otherwise what are we doing here?
@@ -78,6 +59,10 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.debug("copying folder: "+dirname + " to " + dump_location)  # call off the transfer with from and to
                     shutil.copytree(dumpsource+"/"+dirname+"/", dump_location+"/"+dirname) # copy folders
                     dirs_dumped += 1
+                    if cleanup:
+                    #if the user wants a clean dumptruck move the files, otherwise just copy the files
+                         logging.debug("this doesnt do anything yet")
+
                 # rutrow something went wrong...this is as good as it gets now, eventually better debugging
                 except OSError as err_msg:
                     logging.warning("Encountered an OSError, unable to copy dir: " + dirname)
@@ -106,45 +91,18 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning(err_msg)
 
             logging.info("done transfering files, see you next time")
-            #pushover(True,dirs_dumped,files_dumped)
-            try:
-                notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
-            except notifications.PushoverError, err:
-                logging.warning('Pushover encounted an error message not sent')
-                logging.warning(err)
-            subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
 
-            try:
-                params = urllib.urlencode({'movie_folder': dump_location})
-                urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
-                logging.debug('Triggered a CouchPotato scan of DumpFolder')
-            except IOError, err_msg:
-                logging.warning('Unable to reach CouchPotato, check your config')
-                logging.warning(err_msg)
-
-
-            if clean_dumptruck:
-            #if the user wants a clean dumptruck move the files, otherwise just copy the files
-                logging.debug("this doesnt do anything yet")
-
-            if unmount_on_finish:
-            #if user elected to unmount on finish then boot that drive out of the system
-                subprocess.call(["umount", device_file])
-                logging.info(device_file + " unmounted")
+            #return 0 on successfully completing a dump
+            return(0,dirs_dumped,files_dumped)
 
         else:
-            #if the users wants an unmount on a soft fail then the dude abides
-            logging.info("Found nothing to dump")
-            if unmount_on_fail:
-                subprocess.call(["umount", device_file])
-                logging.info(device_file + " unmounted")
+            #return a 1 if the dump failed because there were no files
+            return(1,0,0)
 
     else:
-        #if the users wants an unmount on a soft fail then the dude abides
-        logging.info("Found no folder to dump from")
-        if unmount_on_fail:
-            subprocess.call(["umount", device_file])
-            logging.info(device_file + " unmounted")
+        #return a 1 if the dump failed because the source folder wasnt found
+        return(2,0,0)
+
 
 
 
