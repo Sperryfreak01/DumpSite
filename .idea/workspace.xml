@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DumpSite.py" afterPath="$PROJECT_DIR$/DumpSite.py" />
+    <list default="true" id="bd1df676-a49f-4362-832c-9854a72dab64" name="Default" comment="Changed from test mode to release mode">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DumpSite.iws" />
@@ -31,10 +30,8 @@
       <file leaf-file-name="DumpSite.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DumpSite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="15" selection-start="1326" selection-end="1326" vertical-scroll-proportion="0.9069343" vertical-offset="30" max-vertical-offset="4420">
-              <folding>
-                <element signature="e#1155#1166#0" expanded="true" />
-              </folding>
+            <state line="27" column="15" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.7828467" vertical-offset="30" max-vertical-offset="4420">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -462,7 +459,11 @@
       <created>1388040006061</created>
       <updated>1388040006061</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Changed from test mode to release mode">
+      <created>1388040544302</created>
+      <updated>1388040544302</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -512,7 +513,8 @@
     <MESSAGE value="Cleaned up the enabling and disabling of the notifications based on config settings.  Issue #1 has been implimented but still needs refinement." />
     <MESSAGE value="Successfully split the unmount code from the file transfer subroutine, next step is to call the notifictions from the main cody instead of the file transfer code." />
     <MESSAGE value="Notifications decoupled from the transfer subroutines,  1 function 1 purpose" />
-    <option name="LAST_COMMIT_MESSAGE" value="Notifications decoupled from the transfer subroutines,  1 function 1 purpose" />
+    <MESSAGE value="Changed from test mode to release mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed from test mode to release mode" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -523,9 +525,7 @@
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="117" column="116" selection-start="5302" selection-end="5302" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2312">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -587,9 +587,7 @@
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="0" selection-start="3444" selection-end="3444" vertical-scroll-proportion="0.0" vertical-offset="1326" max-vertical-offset="2006">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -621,6 +619,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="43" selection-start="941" selection-end="941" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/transfer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="95" column="45" selection-start="5114" selection-end="5138" vertical-scroll-proportion="-31.28" vertical-offset="833" max-vertical-offset="1955">
@@ -630,19 +635,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DumpSite.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="43" selection-start="941" selection-end="941" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DumpSite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="15" selection-start="1326" selection-end="1326" vertical-scroll-proportion="0.9069343" vertical-offset="30" max-vertical-offset="4420">
-          <folding>
-            <element signature="e#1155#1166#0" expanded="true" />
-          </folding>
+        <state line="27" column="15" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.7828467" vertical-offset="30" max-vertical-offset="4420">
+          <folding />
         </state>
       </provider>
     </entry>
