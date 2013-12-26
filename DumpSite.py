@@ -34,10 +34,19 @@ config = ConfigParser.RawConfigParser()
 config.read('DumpSite.cfg')
 
 #Load general settings from the config file
-logging_level = config.get('GENERAL', 'debug-level')
-mount_location = config.get('GENERAL', 'mount-location')
-folder_to_dump = config.get('GENERAL', 'folder-to-dump')
-dump_location = config.get('GENERAL', 'dump-location')
+try:
+    logging_level = config.get('GENERAL', 'debug-level')
+    mount_location = config.get('GENERAL', 'mount-location')
+    folder_to_dump = config.get('GENERAL', 'folder-to-dump')
+    dump_location = config.get('GENERAL', 'dump-location')
+    unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
+    unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
+except ConfigParser.NoSectionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find section")
+    logging.warning(err_msg)
+except ConfigParser.NoOptionError as err_msg:
+    logging.warning("Encountered an error loading settings, can not find valid setting")
+    logging.warning(err_msg)
 
 log_type = ('logging.'+logging_level)
 logging.basicConfig(format='%(asctime)s %(levelname)s:%(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='/var/log/dumpsite.log',level=logging.DEBUG)
@@ -90,7 +99,7 @@ class DeviceAddedListener:
 
         if return_code == 0:
             logging.info('drive mounted successfully!')
-            transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location)
+            transfer_status = transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location)
         #mount return/failure codes
         if return_code == 1:
             logging.warning('incorrect invocation or permissions')
@@ -109,9 +118,49 @@ class DeviceAddedListener:
         else:
             logging.warning('mount failed for an unknown reason, mount code: ' + str(return_code))
 
+        if transfer_status == 0:
+            logging.info("done transfering files, see you next time")
+            if unmount_on_finish:
+            #if user elected to unmount on finish then boot that drive out of the system
+                subprocess.call(["umount", device_file])
+                logging.info(device_file + " unmounted")
+        if transfer_status == 1:
+            #if the users wants an unmount on a soft fail then the dude abides
+            logging.info("Found nothing to dump")
+            if unmount_on_fail:
+                subprocess.call(["umount", device_file])
+                logging.info(device_file + " unmounted")
+        if transfer_status == 2:
+            #if the users wants an unmount on a soft fail then the dude abides
+            logging.info("Found no folder to dump from")
+            if unmount_on_fail:
+                subprocess.call(["umount", device_file])
+                logging.info(device_file + " unmounted")
+
+
+
 if __name__ == '__main__':
     if testing:
-        transfer.transferfiles("this is only a test", mount_location, folder_to_dump, dump_location)
+        device_file = "this is only a test"
+        transfer_status = transfer.transferfiles(device_file, mount_location, folder_to_dump, dump_location)
+        if transfer_status == 0:
+            logging.info("done transfering files, see you next time")
+            if unmount_on_finish:
+            #if user elected to unmount on finish then boot that drive out of the system
+                subprocess.call(["umount", device_file])
+                logging.info(device_file + " unmounted")
+        if transfer_status == 1:
+            #if the users wants an unmount on a soft fail then the dude abides
+            logging.info("Found nothing to dump")
+            if unmount_on_fail:
+                subprocess.call(["umount", device_file])
+                logging.info(device_file + " unmounted")
+        if transfer_status == 2:
+            #if the users wants an unmount on a soft fail then the dude abides
+            logging.info("Found no folder to dump from")
+            if unmount_on_fail:
+                subprocess.call(["umount", device_file])
+                logging.info(device_file + " unmounted")
     else:
         from dbus.mainloop.glib import DBusGMainLoop
         atexit.register(endprog)

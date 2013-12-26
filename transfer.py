@@ -28,8 +28,6 @@ import logging
 import logging.handlers
 import glob
 import shutil
-import urllib2
-import urllib
 import notifications
 import ConfigParser
 
@@ -38,8 +36,6 @@ config.read('DumpSite.cfg')
 
 #Load general setting needed from config file
 try:
-    unmount_on_fail = config.get('GENERAL', 'unmount-on-fail')
-    unmount_on_finish = config.get('GENERAL', 'unmount-on-finish')
     clean_dumptruck = config.get('GENERAL', 'clean-dumptruck')
 except ConfigParser.NoSectionError as err_msg:
     logging.warning("Encountered an error loading settings, can not find section")
@@ -158,7 +154,6 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
 
             logging.info("done transfering files, see you next time")
             if pushover_enabled:
-                print(pushover_enabled)
                 try:
                     notifications.pushover(message="Successfully dumped "+str(dirs_dumped)+" folders and "+str(files_dumped) + " files to " + dump_location, token = app_token, user = user_token)
                     logging.debug('Notified Pushover successfully')
@@ -167,39 +162,22 @@ def transferfiles(device_file, mount_location, folder_to_dump, dump_location):
                     logging.warning(err)
 
             if sb_enabled:
-                try:
-                    subprocess.call(["python", sickbeard_location + '/autoProcessTV/autoProcessTV.py', dump_location])
-                    logging.debug('Triggered a SickBeard scan of DumpFolder')
-                except:
-                    logging.warning('Unable to reach SickBeard, check your config')
+                notifications.sickbeard(sickbeard_location, dump_location)
 
             if cp_enabled:
-                try:
-                    params = urllib.urlencode({'movie_folder': dump_location})
-                    urllib.urlopen('http://mattlovett.com:9092/api/' + cp_api + '/renamer.scan/?' + params)
-                    logging.debug('Triggered a CouchPotato scan of DumpFolder')
-                except IOError, err_msg:
-                    logging.warning('Unable to reach CouchPotato, check your config')
-                    logging.warning(err_msg)
+                notifications.couchpotato(dump_location,cp_host,cp_port,cp_api)
 
-            if unmount_on_finish:
-            #if user elected to unmount on finish then boot that drive out of the system
-                subprocess.call(["umount", device_file])
-                logging.info(device_file + " unmounted")
+            #return 0 on successfully completing a dump
+            return 0
 
         else:
-            #if the users wants an unmount on a soft fail then the dude abides
-            logging.info("Found nothing to dump")
-            if unmount_on_fail:
-                subprocess.call(["umount", device_file])
-                logging.info(device_file + " unmounted")
+            #return a 1 if the dump failed because there were no files
+            return 1
 
     else:
-        #if the users wants an unmount on a soft fail then the dude abides
-        logging.info("Found no folder to dump from")
-        if unmount_on_fail:
-            subprocess.call(["umount", device_file])
-            logging.info(device_file + " unmounted")
+        #return a 1 if the dump failed because the source folder wasnt found
+        return 2
+
 
 
 
